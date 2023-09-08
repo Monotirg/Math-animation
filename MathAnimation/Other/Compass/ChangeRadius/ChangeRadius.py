@@ -1,7 +1,7 @@
 from manim import *
 
 
-class ChangeRadiusV1(Scene):
+class ChangeRadius(Scene):
     def construct(self):
         self.camera.background_color = WHITE
         
