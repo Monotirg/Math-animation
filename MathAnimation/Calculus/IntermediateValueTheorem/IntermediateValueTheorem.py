@@ -1,7 +1,7 @@
 from manim import *
 
 
-class GraphFunc(Scene):
+class IntermediateValueTheorem(Scene):
     def construct(self):
         axes = Axes(
             x_range=[0, 10 ,1], 
