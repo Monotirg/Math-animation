@@ -1,5 +1,6 @@
 from manim import *
 
+
 class InitCenter(Scene):
     def construct(self):
         self.camera.background_color = WHITE
