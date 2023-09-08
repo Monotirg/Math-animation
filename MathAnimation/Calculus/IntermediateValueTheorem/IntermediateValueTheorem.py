@@ -27,8 +27,12 @@ class IntermediateValueTheorem(Scene):
         dot = Dot(point=initial_point, color="#005EFF")
         dot.add_updater(lambda x: x.move_to(axes.c2p(t.get_value(), func(t.get_value()))))
         
-        vertical_line = always_redraw(lambda: axes.get_vertical_line(axes.c2p(t.get_value(),func(t.get_value())))).set_z_index(line_max.get_z_index())
-        horizontal_line = always_redraw(lambda: axes.get_horizontal_line(axes.c2p(t.get_value(),func(t.get_value())))).set_z_index(line_max.get_z_index())
+        vertical_line = always_redraw(
+            lambda: axes.get_vertical_line(axes.c2p(t.get_value(),func(t.get_value())))
+        ).set_z_index(line_max.get_z_index())
+        horizontal_line = always_redraw(
+            lambda: axes.get_horizontal_line(axes.c2p(t.get_value(),func(t.get_value())))
+        ).set_z_index(line_max.get_z_index())
         label_c =  MathTex("c", font_size=40)
         label_C = MathTex("C", font_size=40)
         label_c.add_updater(lambda item: item.move_to(vertical_line.get_bottom()).shift(0.3*DOWN))
