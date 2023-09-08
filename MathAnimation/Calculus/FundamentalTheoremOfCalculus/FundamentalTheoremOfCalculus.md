@@ -1,1 +1,1 @@
-https://github.com/Monotirg/Math-animation/assets/144112818/001c6c3c-58c7-41a9-acd9-7abbb00204ac
+https://github.com/Monotirg/Math-animation/assets/144112818/a5eb5f5d-b24a-4b9c-b0d0-f282c13a76f6
