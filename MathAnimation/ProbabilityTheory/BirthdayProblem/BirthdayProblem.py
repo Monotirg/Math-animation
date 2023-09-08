@@ -24,11 +24,18 @@ class BirthdayProblem(Scene):
         
         target_dot = Dot(path[0], color = "#005EFF").scale(0.8)
         vertical_line = always_redraw(lambda: axes.get_vertical_line(target_dot.get_center()))
-        label_line = DecimalNumber(axes.point_to_coords(target_dot.get_center())[0], num_decimal_places=0, font_size=20).next_to(vertical_line, DOWN, buff=0.1)
+        label_line = DecimalNumber(
+            axes.point_to_coords(target_dot.get_center())[0], 
+            num_decimal_places=0, 
+            font_size=20
+        ).next_to(vertical_line, DOWN, buff=0.1)
         label_line.add_updater(lambda mob: mob.next_to(vertical_line, DOWN, buff=0.1))
         label_line.add_updater(lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[0]))
 
-        number = DecimalNumber(axes.point_to_coords(target_dot.get_center())[1], num_decimal_places=3, font_size=20).next_to(target_dot, UP, buff=0.1)
+        number = DecimalNumber(
+            axes.point_to_coords(target_dot.get_center())[1], 
+            num_decimal_places=3, font_size=20
+        ).next_to(target_dot, UP, buff=0.1)
         number.add_updater(lambda mob: mob.next_to(target_dot, UP, buff=0.1))
         number.add_updater(lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[1]))
 
@@ -40,7 +47,10 @@ class BirthdayProblem(Scene):
         target_run_time = [3] + [1]*(len(target_value) - 3) + [3]
         for i in range(len(target_value)-1):
             for k in range(2*target_value[i], 2*target_value[i+1]):
-                self.play(target_dot.animate.move_to(path[k]), run_time=.5*target_run_time[i]/(target_value[i+1] - target_value[i]))
+                self.play(
+                    target_dot.animate.move_to(path[k]), 
+                    run_time=.5*target_run_time[i]/(target_value[i+1] - target_value[i])
+                )
             self.wait(0.5)
 
         self.wait(0.5)

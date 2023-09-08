@@ -25,7 +25,12 @@ class DiceAverage(Scene):
         ))
         
         for i in range(1, dice_value.shape[0]):
-            graph = axes.plot_line_graph(np.arange(i*dice_value.shape[1]-1, (i+1)*dice_value.shape[1] + 1), np.append(cumsum_mean[i-1,-2:], cumsum_mean[i]), add_vertex_dots=False, line_color="#FDE910")
+            graph = axes.plot_line_graph(
+                np.arange(i*dice_value.shape[1]-1, (i+1)*dice_value.shape[1] + 1), 
+                np.append(cumsum_mean[i-1,-2:], cumsum_mean[i]), 
+                add_vertex_dots=False, 
+                line_color="#FDE910"
+                )
             self.play(AnimationGroup(
                 AnimationGroup(*[GrowFromPoint(d, [d.get_bottom()[0], -5, 0]) for d in dice[i]], lag_ratio=0.2),
                 Create(graph),
