@@ -10,7 +10,7 @@ def create_ruler(
     width_division_ident: float = .05,
     height_division: float = .45,
     height_subdivision: float = .25
-):
+) -> VGroup:
     shape = np.array([
         [0, 0, 0],
         [width, 0, 0],
