@@ -23,21 +23,29 @@ class BirthdayProblem(Scene):
         path = [axes.coords_to_point(xi, yi, 0) for xi, yi in zip(x, y)]
         
         target_dot = Dot(path[0], color = "#005EFF").scale(0.8)
-        vertical_line = always_redraw(lambda: axes.get_vertical_line(target_dot.get_center()))
+        vertical_line = always_redraw(
+            lambda: axes.get_vertical_line(target_dot.get_center())
+        )
         label_line = DecimalNumber(
             axes.point_to_coords(target_dot.get_center())[0], 
             num_decimal_places=0, 
             font_size=20
         ).next_to(vertical_line, DOWN, buff=0.1)
-        label_line.add_updater(lambda mob: mob.next_to(vertical_line, DOWN, buff=0.1))
-        label_line.add_updater(lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[0]))
+        label_line.add_updater(
+            lambda mob: mob.next_to(vertical_line, DOWN, buff=0.1)
+        )
+        label_line.add_updater(
+            lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[0])
+        )
 
         number = DecimalNumber(
             axes.point_to_coords(target_dot.get_center())[1], 
-            num_decimal_places=3, font_size=20
+            num_decimal_places=3, font_size=20 
         ).next_to(target_dot, UP, buff=0.1)
         number.add_updater(lambda mob: mob.next_to(target_dot, UP, buff=0.1))
-        number.add_updater(lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[1]))
+        number.add_updater(
+            lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[1])
+        )
 
         self.play(DrawBorderThenFill(axes))
         self.play(Create(graph), run_tim=2)
