@@ -156,13 +156,11 @@ class RulerToArray(ZoomedScene):
         square2  = VGroup(*[item[0] for item in arr_dots_subdiv1])
         dots2 = VGroup(*[item[1] for item in arr_dots_subdiv1])
 
-        
         self.play(FadeIn(square1, square2, label_dots_div, label_dots_subdiv))
         self.play(Succession(
             ReplacementTransform(ruler_dots_copy[1], dots1, path_arc=1),
             ReplacementTransform(ruler_dots_copy[2], dots2, path_arc=1)
         ))
-
         self.play(AnimationGroup(
             AnimationGroup(
             ReplacementTransform(label_dots_shape,label_dots_shape2),
