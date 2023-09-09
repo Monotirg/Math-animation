@@ -1,6 +1,7 @@
 from manim import *
 from Ruler import *
 
+
 class InitRuler(Scene):
     def construct(self):
         self.camera.background_color = WHITE
