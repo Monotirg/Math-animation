@@ -18,7 +18,9 @@ class DistributionDiceRoll(Scene):
             
             distr_roll.append(val/count_roll)
 
-        dice = VGroup(*[create_dice(np.random.randint(1,7), 0.75, 0.2) for _ in range(count_dice)]).arrange(RIGHT, buff=0.2) 
+        dice = VGroup(*[
+            create_dice(np.random.randint(1,7), 0.75, 0.2) for _ in range(count_dice)
+        ]).arrange(RIGHT, buff=0.2) 
         hist = BarChart(
             distr_roll[0],
             bar_names=[f"{i}" for i in range(1,7)],
