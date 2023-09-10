@@ -10,8 +10,8 @@ class PseudoscalarProduct(Scene):
         product_val.next_to(product, RIGHT).align_to(product, DOWN)
         product_label = VGroup(product, product_val)
         
-        vec1 = Vector([4,0,0], color=BLACK)
-        vec2 = Vector([4,0,0], color=BLACK)
+        vec1 = Vector([4, 0, 0], color=BLACK)
+        vec2 = Vector([4, 0, 0], color=BLACK)
         vec2.rotate(PI/8, about_point = vec1.get_start())
         vec = VGroup(vec1,vec2)
 
