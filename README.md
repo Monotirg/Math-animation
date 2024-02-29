@@ -4,7 +4,7 @@
 The Repository that contains source-code for animations and problems from articles on [Habr](https://habr.com/ru/users/Monotirg/publications/articles)
 ## Example from Probability theory
 
-https://github.com/Monotirg/Math-animation/assets/144112818/f50889da-ce8f-47cf-89f9-440de7e04f7e
+https://github.com/Monotirg/Math-animation/assets/144112818/384d28a3-0bc9-4729-9328-75069a244b00
 
 ```python
 from manim import *
