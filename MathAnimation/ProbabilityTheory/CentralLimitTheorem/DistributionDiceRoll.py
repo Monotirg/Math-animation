@@ -1,5 +1,6 @@
-from manim import *
 import numpy as np
+
+from manim import *
 from Dice import *
 
 
