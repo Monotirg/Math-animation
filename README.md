@@ -7,72 +7,69 @@ The Repository that contains source-code for animations and problems from articl
 https://github.com/Monotirg/Math-animation/assets/144112818/384d28a3-0bc9-4729-9328-75069a244b00
 
 ```python
-from manim import *
 import numpy as np
 
+from manim import *
+from Dice import *
 
-class BirthdayProblem(Scene):
+
+class DistributionDiceRoll(Scene):
     def construct(self):
-        max_group = 65
-        x, y = [0, 1], [0, 0]
-        for i in range(2, max_group):
-            prob = 1
-            for n in range(i):
-                prob *= (365 - n) / 365
-
-            y.extend([y[-1], 1 - prob])
-            x.extend([i - 1e-12, i])
-
-        axes = (
-            Axes(x_range=[0, max_group, 5], y_range=[0, 1.2, 0.2])
-            .scale(0.8)
-            .move_to(ORIGIN)
-        )
-
-        graph = axes.plot_line_graph(x, y, line_color="#F4BC00", add_vertex_dots=False)
-        path = [axes.coords_to_point(xi, yi, 0) for xi, yi in zip(x, y)]
-
-        target_dot = Dot(path[0], color="#005EFF").scale(0.8)
-        vertical_line = always_redraw(
-            lambda: axes.get_vertical_line(target_dot.get_center())
-        )
-        label_line = DecimalNumber(
-            axes.point_to_coords(target_dot.get_center())[0],
-            num_decimal_places=0,
-            font_size=20,
-        ).next_to(vertical_line, DOWN, buff=0.1)
-        label_line.add_updater(lambda mob: mob.next_to(vertical_line, DOWN, buff=0.1))
-        label_line.add_updater(
-            lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[0])
-        )
-
-        number = DecimalNumber(
-            axes.point_to_coords(target_dot.get_center())[1],
-            num_decimal_places=3,
-            font_size=20,
-        ).next_to(target_dot, UP, buff=0.1)
-        number.add_updater(lambda mob: mob.next_to(target_dot, UP, buff=0.1))
-        number.add_updater(
-            lambda mob: mob.set_value(axes.point_to_coords(target_dot.get_center())[1])
-        )
-
-        self.play(DrawBorderThenFill(axes))
-        self.play(Create(graph), run_tim=2)
-        self.play(Create(vertical_line), FadeIn(target_dot), FadeIn(number, label_line))
-
-        target_value = np.linspace(1, 0.95 * max_group, 4).astype(int)
-        target_run_time = [3] + [1] * (len(target_value) - 3) + [3]
-        for i in range(len(target_value) - 1):
-            for k in range(2 * target_value[i], 2 * target_value[i + 1]):
-                self.play(
-                    target_dot.animate.move_to(path[k]),
-                    run_time=0.5
-                    * target_run_time[i]
-                    / (target_value[i + 1] - target_value[i]),
+        np.random.seed(49312188)
+        count_dice = 7
+        count_roll = 10**5
+        distr_roll = []
+    
+        for i in range(count_dice):
+            roll = np.sum(np.random.randint(1, 7, size=(i + 1, count_roll)), axis=0)
+            val = np.zeros((i + 1) * 6)
+            for r in roll:
+                val[r - 1] += 1
+    
+            distr_roll.append(val / count_roll)
+    
+        dice = VGroup(
+            *[
+                create_dice(np.random.randint(1, 7), 0.75, 0.2)
+                for _ in range(count_dice)
+            ]
+        ).arrange(RIGHT, buff=0.2)
+        hist = BarChart(
+            distr_roll[0],
+            bar_names=[f"{i}" for i in range(1, 7)],
+            bar_colors=["#2F58CD" for _ in range(6)],
+        ).scale(0.85)
+        VGroup(hist, dice).arrange(DOWN, buff=1)
+    
+        self.play(GrowFromPoint(dice[0], [dice[0].get_bottom()[0], -5, 0]))
+        self.play(DrawBorderThenFill(hist[0:2]))
+    
+        for k in range(1, count_dice):
+            new_hist = (
+                BarChart(
+                    distr_roll[k],
+                    bar_names=[f"{i}" for i in range(1, k * 6 + 7)],
+                    bar_colors=["#2F58CD" for _ in range(k * 6)],
                 )
-            self.wait(0.5)
-
+                .move_to(hist.get_center())
+                .scale(0.85)
+            )
+    
+            self.play(
+                GrowFromPoint(dice[k], [dice[k].get_bottom()[0], -5, 0]), run_time=0.5
+            )
+            self.play(ReplacementTransform(hist[0:2], new_hist[0:2]), run_time=0.5)
+            hist = new_hist
+    
+        mean = 3.5 * count_dice
+        std = (count_dice * 35 / 12) ** 0.5
+        func = lambda t: np.exp(-0.5 * ((t - mean) / std) ** 2) / (
+            std * (2 * np.pi) ** 0.5
+        )
+        func = hist.plot(func, x_range=[0, 6 * (count_dice)], color="#FDE910")
+        self.play(Create(func), run_time=1.5, rate_func=rate_functions.ease_in_out_sine)
         self.wait(0.5)
+
 ```
 
 
