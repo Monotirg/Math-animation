@@ -1,3 +1,4 @@
+r'\b(public|protected|private)?\s*(static|final|synchronized)?\s*[\w<>[\]]+\s+(\w+)\s*\(([^)]*)\)\s*\{'
 # Math-Animation
 ## Description
 
