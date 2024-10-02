@@ -1,5 +1,3 @@
-r'\b(public|protected|private)?\s*(static|final|synchronized)?\s*[\w<>[\]]+\s+(\w+)\s*\(([^)]*)\)\s*\{'
-# Math-Animation
 ## Description
 
 The Repository that contains source-code for animations and problems from articles on [Habr](https://habr.com/ru/users/Monotirg/publications/articles)
